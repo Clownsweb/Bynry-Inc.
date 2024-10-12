@@ -1,0 +1,126 @@
+{% extends 'base_generic.html' %}
+{% load static %}  <!-- Load static files for CSS -->
+{% block content %}
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #eef2f3; /* Soft light background */
+      margin: 0;
+      padding: 0;
+    }
+
+    .requests-container {
+      max-width: 600px; /* Max width for container */
+      margin: 40px auto; /* Center the container */
+      padding: 30px;
+      background-color: white; /* White background for requests section */
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Deeper shadow for elevation */
+      border: 1px solid #ccc; /* Light border for definition */
+    }
+
+    .requests-container h2 {
+      text-align: center; /* Center heading */
+      color: #2c3e50; /* Darker blue-gray text color */
+      margin-bottom: 30px; /* Space below the heading */
+      font-size: 24px; /* Larger font size for heading */
+    }
+
+    .requests-list {
+      list-style-type: none; /* Remove bullet points */
+      padding: 0; /* Remove default padding */
+    }
+
+    .requests-list li {
+      padding: 20px; /* Padding around each item */
+      margin-bottom: 15px; /* Space between items */
+      border: 1px solid #ddd; /* Light border */
+      border-radius: 8px; /* Rounded corners */
+      background-color: #f9f9f9; /* Light background for list items */
+      transition: background-color 0.3s, transform 0.3s; /* Transition effects */
+      display: flex; /* Flexbox layout for item content */
+      justify-content: space-between; /* Space out content */
+      align-items: center; /* Center content vertically */
+    }
+
+    .requests-list li:hover {
+      background-color: #e9ecef; /* Slightly darker on hover */
+      transform: translateY(-2px); /* Lift effect on hover */
+    }
+
+    .request-info {
+      flex: 1; /* Allow info to take up available space */
+      padding-right: 20px; /* Space between info and action button */
+    }
+
+    .request-status {
+      font-weight: bold; /* Bold status text */
+      color: #5cb85c; /* Default green color for status */
+    }
+
+    .request-date {
+      color: #aaa; /* Lighter color for the date */
+      font-size: 12px; /* Smaller font size */
+    }
+
+    .empty-message {
+      text-align: center; /* Center the no requests message */
+      color: #999; /* Gray color */
+      font-size: 16px; /* Slightly larger font */
+      margin-top: 20px; /* Space above message */
+    }
+
+    /* Button for actions */
+    .action-button {
+      background-color: #5cb85c; /* Green background */
+      color: white; /* White text */
+      border: none; /* No border */
+      border-radius: 4px; /* Rounded corners */
+      padding: 8px 12px; /* Padding */
+      cursor: pointer; /* Pointer cursor on hover */
+      transition: background-color 0.3s; /* Transition effect */
+      text-decoration: none; /* No underline for links */
+      font-size: 14px; /* Font size */
+    }
+
+    .action-button:hover {
+      background-color: #4cae4c; /* Darker green on hover */
+    }
+
+    /* Status Colors */
+    .status-created {
+      color: red; /* Color for created */
+    }
+
+    .status-in-progress {
+      color: yellow; /* Color for in progress */
+    }
+
+    .status-completed {
+      color: green; /* Color for completed */
+    }
+  </style>
+
+<div class="requests-container">
+    <h2>Our Services</h2>
+    <ul class="requests-list">
+      {% for request in requests %}
+      <li>
+          <div class="request-info">
+              <strong>Type Of Service:</strong> {{ request.service_type }} <br>
+              <span class="request-status 
+                  {% if request.status == 'Created' %}status-created
+                  {% elif request.status == 'In Progress' %}status-in-progress
+                  {% elif request.status == 'Completed' %}status-completed
+                  {% endif %}">
+                  Status: Available
+              </span> <br>
+             
+          </div>
+          <a href="/service/submit" class="action-button">View Details</a> <!-- Link to view request -->
+      </li>
+      
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

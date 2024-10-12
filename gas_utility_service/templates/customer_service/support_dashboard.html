@@ -1,0 +1,11 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+  <h2>Support Dashboard</h2>
+  <ul>
+    {% for request in requests %}
+      <li>{{ request.user.username }} - {{ request.service_type }} - {{ request.status }}</li>
+    {% empty %}
+      <li>No service requests to display.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
